@@ -117,6 +117,9 @@ globalStart = 0;
 		    type: "post",
 		    url: postUrl,
 		    data: {	"_token": "{{ csrf_token() }}",
+		    		"id": $("#filterId").val(),
+		    		"date": $("#filterDate").val(),
+		    		"name": $("#filterName").val()
 		    		},
 		    datatype: "html",
 		    success: function(result){
@@ -137,7 +140,10 @@ globalStart = 0;
 		    type: "post",
 		    url: postUrl,
 		    data: {"_token": "{{ csrf_token() }}",
-		    		"start": start
+		    		"start": start,
+		    		"id": $("#filterId").val(),
+		    		"date": $("#filterDate").val(),
+		    		"name": $("#filterName").val()
 		    	},
 
 		    datatype: "html",
@@ -159,6 +165,15 @@ globalStart = 0;
 	}
 
 	jQuery(document).ready(function() {
+		$( "#filterId" ).keyup(function() {
+		  generateTable(globalStart);
+		});
+	   $( "#filterName" ).keyup(function() {
+		  generateTable(globalStart);
+		});
+	   $( "#filterDate" ).keyup(function() {
+		  generateTable(globalStart);
+		});
 	    generateTable(0);
 	   
 	});

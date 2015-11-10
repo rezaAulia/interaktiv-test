@@ -107,12 +107,18 @@ class HomeController extends Controller {
 
 
 	public function generateTable(Request $request){
-		$sample = Sample::take(30)
+		$sample = Sample::where('id', 'LIKE', '%'.$request->Input('id').'%')
+							->where('CustomerName', 'LIKE', '%'.$request->Input('name').'%')
+							->where('DatePurchase', 'LIKE', '%'.$request->Input('date').'%')
+							->take(30)
 							->skip($request->Input("start"))->get();
 		return $sample;
 	}
 	public function getPaginateTable(Request $request){
-		$sample = Sample::count();
+		$sample = Sample::where('id', 'LIKE', '%'.$request->Input('id').'%')
+						->where('CustomerName', 'LIKE', '%'.$request->Input('name').'%')
+						->where('DatePurchase', 'LIKE', '%'.$request->Input('date').'%')
+						->count();
 		$totalPage = ceil($sample/30);
 		return $totalPage;
 	}
