@@ -53,7 +53,19 @@
 								</th>
 
 							</tr>
-							
+							<tr>
+								<th></th>
+								<th><input type="text"  class="form-control" id="filterId"></th>
+								<th><input type="text"  class="form-control" id="filterName"></th>
+								<th><input type="text"  class="form-control" id="filterDate"></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
 						</thead>
 						<tbody>
 							
