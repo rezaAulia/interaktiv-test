@@ -14,7 +14,7 @@
 						</div>
 						<div class="col-md-7">
 							
-							
+							<h3 id="loading"></h3>
 						</div>
 					</div>
 					<table id="thisIsTable" class="table">
@@ -81,7 +81,7 @@
 @section("javascript")
 <script>
 	function updateData(){
-	
+		$("#loading").html("Please Wait.......");
 		postUrl = "{{URL::To('updateData')}}";
 	  $.ajax({
 		    type: "post",
@@ -95,7 +95,7 @@
 		     	}else{
 		     		alert("Already Added");
 		     	}
-		     	
+		     	$("#loading").html("");
 		    }
 	  });
 
