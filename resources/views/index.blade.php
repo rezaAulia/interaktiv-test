@@ -13,7 +13,7 @@
 							<button onClick="updateData()"class="btn btn-primary">Update Data from CSV and Json</button>
 						</div>
 						<div class="col-md-7">
-							
+							<h4>Sort By <span id="sortName"></span></h4>
 							<h3 id="loading"></h3>
 						</div>
 					</div>
@@ -182,7 +182,7 @@ globalSortDir = 'ASC';
 		}
 		globalSortName = sortName;
 		generateTable(globalStart);
-		
+	    $("#sortName").html(globalSortName+" "+globalSortDir);
 	}
 
 	jQuery(document).ready(function() {
@@ -196,7 +196,7 @@ globalSortDir = 'ASC';
 		  generateTable(globalStart);
 		});
 	    generateTable(0);
-	   
+	    $("#sortName").html(globalSortName+" "+globalSortDir);
 	});
 
 </script>
