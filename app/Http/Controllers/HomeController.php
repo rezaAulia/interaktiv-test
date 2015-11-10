@@ -63,9 +63,10 @@ class HomeController extends Controller {
 	private function insert_from_json(){
 		$array = array();
 		$path = URL::To("/data/RecruitmentTestData.json");
-	    $file = file_get_contents($path);
-	    $file = str_replace("'",'"',$file);
-	   	$file = json_decode($file,true);
+	    $array = file_get_contents($path);
+	    $array = str_replace("'",'"',$array);
+	   	$array = json_decode($array,true);
+	   	
 	   	foreach($array as $key => $value){
 	   		if($array[$key]['Id'] != ""){
 	   			$this->insertToTableSample(array($array[$key]['Id'],
