@@ -104,7 +104,8 @@ globalSortDir = 'ASC';
 		    success: function(result){
 		     	if(result == 1){
 		     		alert("Success");
-
+		     		globalStart=0;
+		     		generateTable(globalStart);
 		     	}else{
 		     		alert("Already Added");
 		     	}
