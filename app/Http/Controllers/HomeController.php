@@ -110,6 +110,7 @@ class HomeController extends Controller {
 		$sample = Sample::where('id', 'LIKE', '%'.$request->Input('id').'%')
 							->where('CustomerName', 'LIKE', '%'.$request->Input('name').'%')
 							->where('DatePurchase', 'LIKE', '%'.$request->Input('date').'%')
+							->orderBy($request->Input('sort'),$request->Input('direction'))
 							->take(30)
 							->skip($request->Input("start"))->get();
 		return $sample;

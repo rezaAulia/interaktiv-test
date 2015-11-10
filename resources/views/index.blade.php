@@ -24,32 +24,32 @@
 									No
 								</th>
 								<th  class="col-md-2">
-									Id
+									<a href="#" onClick="setSort('id')">Id</a>
 								</th>
 								<th  class="col-md-1">
-									Customer Name
+									<a href="#" onClick="setSort('CustomerName')">Customer Name</a>
 
 								</th>
 								<th  class="col-md-1">
-									Date Purchase
+									<a href="#" onClick="setSort('DatePurchase')">Date Purchase</a>
 								</th>
 								<th  class="col-md-1">
-									Amount Due
+									<a href="#" onClick="setSort('AmountDue')">Amount Due</a>
 								</th >
 								<th  class="col-md-1">
-									Discount
+									<a href="#" onClick="setSort('Discount')">Discount</a>
 								</th>
 								<th  class="col-md-1">
-									GST
+									<a href="#" onClick="setSort('GST')">GST</a>
 								</th>
 								<th  class="col-md-1">
-									Total Price Before Discount
+									<a href="#" onClick="setSort('TotalPriceBeforeDisc')">Total Price Before Discount</a>
 								</th>
 								<th  class="col-md-1">
-									Created At
+									<a href="#" onClick="setSort('created_at')">Created Date</a>
 								</th>
 								<th  class="col-md-1">
-									Last Modified Date
+									<a href="#" onClick="setSort('updated_at')">Last Modified Date</a>
 								</th>
 
 							</tr>
@@ -90,6 +90,9 @@
 @section("javascript")
 <script>
 globalStart = 0;
+globalSortName = 'id';
+globalSortDir = 'ASC';
+
 	function updateData(){
 		$("#loading").html("Please Wait.......");
 		postUrl = "{{URL::To('updateData')}}";
@@ -143,7 +146,9 @@ globalStart = 0;
 		    		"start": start,
 		    		"id": $("#filterId").val(),
 		    		"date": $("#filterDate").val(),
-		    		"name": $("#filterName").val()
+		    		"name": $("#filterName").val(),
+		    		"sort": globalSortName,
+		    		"direction": globalSortDir
 		    	},
 
 		    datatype: "html",
@@ -162,6 +167,22 @@ globalStart = 0;
 		    }
 
 	  });
+	}
+
+	function setSort(sortName){
+		if(globalSortName == sortName){
+			if(globalSortDir == "DESC"){
+				globalSortDir = "ASC";
+			}else{
+				globalSortDir = "DESC";
+			}
+			
+		}else{
+			globalSortDir = "ASC";
+		}
+		globalSortName = sortName;
+		generateTable(globalStart);
+		
 	}
 
 	jQuery(document).ready(function() {
