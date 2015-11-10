@@ -13,3 +13,5 @@
 
 Route::get('/', 'HomeController@index');
 Route::post('/updateData','HomeController@updateData');
+Route::post('/generateTable','HomeController@generateTable');
+Route::post('/getPaginateTable','HomeController@getPaginateTable');
