@@ -57,7 +57,7 @@
 								<th></th>
 								<th><input type="text"  class="form-control" id="filterId"></th>
 								<th><input type="text"  class="form-control" id="filterName"></th>
-								<th><input type="text"  class="form-control" id="filterDate"></th>
+								<th><input type="month" class="form-control" id="filterDate"></th>
 								<th></th>
 								<th></th>
 								<th></th>
@@ -192,7 +192,7 @@ globalSortDir = 'ASC';
 	   $( "#filterName" ).keyup(function() {
 		  generateTable(globalStart);
 		});
-	   $( "#filterDate" ).keyup(function() {
+	   $( "#filterDate" ).change(function() {
 		  generateTable(globalStart);
 		});
 	    generateTable(0);
