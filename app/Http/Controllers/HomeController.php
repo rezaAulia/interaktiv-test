@@ -66,7 +66,7 @@ class HomeController extends Controller {
 	    $array = file_get_contents($path);
 	    $array = str_replace("'",'"',$array);
 	   	$array = json_decode($array,true);
-	   	
+
 	   	foreach($array as $key => $value){
 	   		if($array[$key]['Id'] != ""){
 	   			$this->insertToTableSample(array($array[$key]['Id'],
@@ -103,6 +103,18 @@ class HomeController extends Controller {
 		$sample->created_at = $array['6'];
 		$sample->updated_at = $array['7'];
 		$sample->save();
+	}
+
+
+	public function generateTable(Request $request){
+		$sample = Sample::take(30)
+							->skip($request->Input("start"))->get();
+		return $sample;
+	}
+	public function getPaginateTable(Request $request){
+		$sample = Sample::count();
+		$totalPage = ceil($sample/30);
+		return $totalPage;
 	}
 
 }

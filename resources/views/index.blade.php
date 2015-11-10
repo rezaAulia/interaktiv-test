@@ -80,6 +80,7 @@
 
 @section("javascript")
 <script>
+globalStart = 0;
 	function updateData(){
 		$("#loading").html("Please Wait.......");
 		postUrl = "{{URL::To('updateData')}}";
@@ -100,5 +101,58 @@
 	  });
 
 	}
+
+	function getPaginateTable(){
+		postUrl = "{{URL::To('getPaginateTable')}}";
+	  $.ajax({
+		    type: "post",
+		    url: postUrl,
+		    data: {	"_token": "{{ csrf_token() }}",
+		    		},
+		    datatype: "html",
+		    success: function(result){
+		    	$("#pagination").empty();
+		     	for(i=0;i<result;i++){
+		     		startRecord = i*30;
+		     		pageNumber = i+1;
+		     		$("#pagination").append('<li><a href="#" onClick="generateTable('+startRecord+')">'+pageNumber+'</a></li>');
+		     	}
+		     
+		    }
+	  });
+	}
+
+	function generateTable(start){
+		postUrl = "{{URL::To('generateTable')}}";
+	  $.ajax({
+		    type: "post",
+		    url: postUrl,
+		    data: {"_token": "{{ csrf_token() }}",
+		    		"start": start
+		    	},
+
+		    datatype: "html",
+		    success: function(result){
+		    	globalStart = start;
+		    	start = start+1;
+
+		    	$("#thisIsTable tbody").empty();
+		    	for(x in result){
+		    	
+		    		$("#thisIsTable tbody").append("<tr><td>"+start+"</td><td>"+result[x].id+"</td><td>"+result[x].CustomerName+"</td><td>"+result[x].DatePurchase+"</td><td>"+result[x].AmountDue+"</td><td>"+result[x].Discount+"</td><td>"+result[x].GST+"</td><td>"+result[x].TotalPriceBeforeDisc+"</td><td>"+result[x].created_at+"</td><td>"+result[x].updated_at+"</td></tr>");
+		    		start++;
+		    	}
+		     	 getPaginateTable();
+		     
+		    }
+
+	  });
+	}
+
+	jQuery(document).ready(function() {
+	    generateTable(0);
+	   
+	});
+
 </script>
 @endsection
