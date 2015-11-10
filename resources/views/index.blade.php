@@ -74,10 +74,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<ul class="pagination" id="pagination">
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
+							
 							  
 							  
 							</ul>
