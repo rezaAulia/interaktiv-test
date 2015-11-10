@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use App\Sample;
-
+use Carbon\Carbon;
+use URL;
 class HomeController extends Controller {
 
 	/*
@@ -28,5 +29,79 @@ class HomeController extends Controller {
 		return view('index');
 	}
 
+	public function updateData(){
+		$sample = Sample::first();
+		if(!$sample){
+			$this->insert_from_json();
+			$this->insert_from_csv();
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+
+	private function insert_from_csv(){
+		$array = array();
+		$file = fopen("data/RecruitmentTestData.csv","r");
+		while(!feof($file))
+		  {
+		  	array_push($array,fgetcsv($file));
+		  
+		  }
+		fclose($file);
+		//var_dump($array[1]);
+		foreach($array as $key => $value){
+			if($key != 0){
+				if($array[$key][0] != ""){
+					$this->insertToTableSample($array[$key]);
+				}
+				
+			}	
+		}
+	}
+
+	private function insert_from_json(){
+		$array = array();
+		$path = URL::To("/data/RecruitmentTestData.json");
+	    $file = file_get_contents($path);
+	    $file = str_replace("'",'"',$file);
+	   	$file = json_decode($file,true);
+	   	foreach($array as $key => $value){
+	   		if($array[$key]['Id'] != ""){
+	   			$this->insertToTableSample(array($array[$key]['Id'],
+												$array[$key]['CustomerName'],
+												$array[$key]['DatePurchase'],
+												$array[$key]['Amount_due__c'],
+												$array[$key]['Discount__c'],
+												$array[$key]['GST__c'],
+												$array[$key]['CreatedDate'],
+												$array[$key]['LastModifiedDate']));
+	   		
+				
+	   		}
+					
+		}
+	}
+
+	private function formatDatePurchase($string){
+		$date = substr($string,0,6);
+		$year = substr($date,0,4);
+		$month = substr($date,4,2);
+		return $year.'-'.$month.'-00';
+	}
+
+	private function insertToTableSample($array){
+		$sample = new Sample;
+		$sample->id = $array['0'];
+		$sample->CustomerName = $array['1'];
+		$sample->DatePurchase = $this->formatDatePurchase($array['2']);
+		$sample->AmountDue = $array['3'];
+		$sample->Discount = $array['4'];
+		$sample->GST = $array['5'];
+		$sample->TotalPriceBeforeDisc = $sample->AmountDue + $sample->Discount - $sample->GST;
+		$sample->created_at = $array['6'];
+		$sample->updated_at = $array['7'];
+		$sample->save();
+	}
 
 }

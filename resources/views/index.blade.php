@@ -10,9 +10,12 @@
 				<div class="panel-body">	
 					<div class="row">
 						<div class="col-md-5">
-							<button class="btn btn-primary">Update Data from CSV and Json</button>
+							<button onClick="updateData()"class="btn btn-primary">Update Data from CSV and Json</button>
 						</div>
-						
+						<div class="col-md-7">
+							
+							
+						</div>
 					</div>
 					<table id="thisIsTable" class="table">
 						<thead>
@@ -73,4 +76,29 @@
 		</div>
 	</div>
 </div>
+@endsection
+
+@section("javascript")
+<script>
+	function updateData(){
+	
+		postUrl = "{{URL::To('updateData')}}";
+	  $.ajax({
+		    type: "post",
+		    url: postUrl,
+		    data: {"_token": "{{ csrf_token() }}"},
+		    datatype: "html",
+		    success: function(result){
+		     	if(result == 1){
+		     		alert("Success");
+
+		     	}else{
+		     		alert("Already Added");
+		     	}
+		     	
+		    }
+	  });
+
+	}
+</script>
 @endsection
