@@ -19,3 +19,4 @@ Note:
 	1. If you get an error like "PHP Fatal error: Call to undefined method Illuminate\Foundation\Application::getCachedCompilePath()" then you must delete compiled.php file in /vendor and then run composer install / composer update again
 
 	2. when you open the web and get an error 500 you must set user modify permission to laravel standard. or if you only want to see the web and not mind about security just change chmod to 777.
+	3. If Proccess Update Database is too long. you can import table sample provided in root of repository
